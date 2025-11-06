@@ -3,6 +3,7 @@
 namespace App\Models\Project;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Diagnostic\Sigirc\Oficina as OficinaDiagnostico;
 
 class Oficina extends Model
@@ -15,7 +16,7 @@ class Oficina extends Model
 
     protected $guarded = [];
 
-    public function diagnostico()
+    public function diagnostico(): BelongsTo
     {
         return $this->belongsTo(OficinaDiagnostico::class, 'oficina', 'detalle_oficinas_id');
     }

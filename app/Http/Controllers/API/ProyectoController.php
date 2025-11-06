@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Project\{Proyecto};
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\API\Antecedent\Antecedentes;
 use App\Http\Clases\Store\{Proyecto as StoreProyecto};
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Project\{Proyecto};
+use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -23,18 +23,28 @@ class ProyectoController extends Controller
         return array_merge($this->obtenerSeguimiento($request->id), $this->obtenerDiagnostico($this->proyecto));
     }
 
+    public function test()
+    {#Proyecto::where('id_proyecto', 41500)->first()
+        return response(['solicitud'=>true, 'message'=>'prueba', 'proyecto'=>$this->obtenerProyecto(415)], 200);
+    }
+
     public function save(Request $request)
     {
         DB::beginTransaction();
         try {
             $proyecto = new StoreProyecto($request->all());
-            DB::commit();
+            if ($proyecto->guardar()) {
+                DB::commit();
+            } else {
+                throw new Exception($proyecto->existsError() ? $proyecto->getFirstError() : '');
+            }
         } catch (Exception $e) {
-            DB::rollback();
-            return response(['message'=>'Error al guardar la información del proyecto. '.$e->getMessage()], 400);
+            DB::rollback();return $e;
+            return response(['solicitud'=>false, 'message'=>'Error al guardar la información del Proyecto. '.$e->getMessage()], 400);
         }
 
         return response([
+            'solicitud'=>true,
             'message'=>'Proyecto guardado correctamente.',
             'version'=>$proyecto->getUltimaVersion(),
             'id'=>$request->input('id') ?? $proyecto->getId(),
@@ -51,11 +61,11 @@ class ProyectoController extends Controller
         if ($id>0) {
             return Proyecto::with('versiones')
             ->where('id_proyecto', $id)
-            ->first();
+            ->first() ?: new Proyecto();
         }
         return  Proyecto::with('versiones')
                 ->where('id_organizacion', auth()->user()->directorio->id_organizacion)
-                ->whereYear('fecha', date('Y') - 1) #quitar el -1
+                ->whereYear('fecha', date('Y')) #quitar el -1
                 ->whereBetween('estatus', [1,11])
                 ->orderBy('fecha','DESC')
                 ->first() ?: new Proyecto();

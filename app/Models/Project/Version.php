@@ -2,6 +2,7 @@
 
 namespace App\Models\Project;
 
+use Illuminate\Database\Eloquent\Relations\{HasOne, HasMany};
 use Illuminate\Database\Eloquent\Model;
 
 class Version extends Model
@@ -14,11 +15,11 @@ class Version extends Model
 
     protected $guarded = [];
 
-    public function seguimiento()
+    public function seguimiento(): HasOne
     {
         return $this->hasOne(Seguimiento::class, 'id_version', 'id_version')->withDefault();
     }
-    public function desarrollo()
+    public function desarrollo(): HasMany
     {
         return $this->hasMany(Desarrollo::class,'id_version','id_version');
     }

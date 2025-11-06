@@ -62,10 +62,10 @@ class CatalogoController extends Controller
     protected function consultarEntregables($idComponente)
     {
         return CatalogoEntregable::where(function ($query) use ($idComponente) {
-            $query->where('componente', $idComponente)
-            ->orWhere('componente', 'like', "{$idComponente},%")
-            ->orWhere('componente', 'like', "%,{$idComponente},%")
-            ->orWhere('componente', 'like', "%,{$idComponente}");
+            $query->where('id_componente', $idComponente)
+            ->orWhere('id_componente', 'like', "{$idComponente},%")
+            ->orWhere('id_componente', 'like', "%,{$idComponente},%")
+            ->orWhere('id_componente', 'like', "%,{$idComponente}");
         })
         ->where('estatus', 1)->get();
     }

@@ -5,6 +5,7 @@ namespace App\Http\Clases\Store;
 use App\Http\Clases\Validations\ValidaActividad;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use App\Models\Project\Actividad AS ModelActividad;
+use Illuminate\Support\Facades\Log;
 
 class Actividad extends ValidaActividad
 {
@@ -13,11 +14,11 @@ class Actividad extends ValidaActividad
     public function __construct(Relation $modeloActividad, array $actividad)
     {
         parent::__construct($actividad);
-
-        $this->crear(parent::getValidados(), $modeloActividad);
+        #Log::info('actividad...', ['porValidar'=>parent::getFirstError()]);
+        $this->crear($modeloActividad, parent::getValidados());
     }
 
-    public function crear($actividad, Relation $modeloActividad)
+    public function crear(Relation $modeloActividad, $actividad)
     {
         $campos = [
             'id_subcomponente'=>$actividad['subcomp'],
@@ -37,6 +38,8 @@ class Actividad extends ValidaActividad
         isset($actividad['tipoRecurso']) ? $campos['tipo_recurso']  = $actividad['tipoRecurso']    : null;
         isset($actividad['mest'])        ? $campos['monto_estatal'] = $actividad['mest']  : null;
         isset($actividad['mfed'])        ? $campos['monto_federal'] = $actividad['mfed']  : null;
+        !isset($actividad['comentarios'])? $campos['comentarios']   = '' : null;
+        !isset($actividad['historial'])  ? $campos['historial']     = '' : null;
 
         $this->actividad = $modeloActividad->create($campos);
 

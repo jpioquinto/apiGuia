@@ -30,7 +30,7 @@ class AntecedenteController extends Controller
 
         $respuesta['anioDiagnostico'] = $antecedente->obtenerAnioDiagnostico();
         $respuesta['idDiagnostico'] = $antecedente->obtenerIdDiagnostico();
-Log::info('API request data:', ['vertiente' => $antecedente->obtenerVertiente(), 'diagnosticoId'=>$request->idDiagnostico, 'respuesta'=>$respuesta]);
+        #Log::info('API request data:', ['vertiente' => $antecedente->obtenerVertiente(), 'diagnosticoId'=>$request->idDiagnostico, 'respuesta'=>$respuesta]);
         (intval($antecedente->obtenerVertiente())==1)
         ? $respuesta['pec'] = $this->antecedenteCatastral($this->proyecto, $antecedente->obtenerDiagnostico())
         : $respuesta['pem'] = $this->antecedenteRegistral($this->proyecto, $antecedente->obtenerDiagnostico());

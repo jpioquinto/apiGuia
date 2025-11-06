@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Diagnostic\Sigirc\Organizacion;
 
 class Directorio extends Model
@@ -11,7 +12,7 @@ class Directorio extends Model
     protected $table = 'apl_directorio';
     protected $primaryKey = 'directorio_id';
 
-    public function organizacion()
+    public function organizacion(): HasOne
     {
         return $this->hasOne(Organizacion::class, 'id_organizacion', 'id_organizacion');
     }

@@ -16,7 +16,9 @@ class Desarrollo extends ValidaDesarrollo
 
     protected $componente;
 
-    public function __construct(Relation $modeloDesarrollo, array $componente, $seccion = 5)
+    protected $modelDesarrollo;
+
+    public function __construct(Relation $modelDesarrollo, array $componente, $seccion = 5)
     {
         $this->seccion    = $seccion;
 
@@ -24,11 +26,20 @@ class Desarrollo extends ValidaDesarrollo
 
         parent::__construct($componente);
 
-        $this->crear(parent::getValidados(), $modeloDesarrollo);
+        $this->setModelDesarrollo($modelDesarrollo);
+
+        #$this->crear(parent::getValidados(), $modelDesarrollo);
     }
 
-    public function crear(array $componente, Relation $modeloDesarrollo)
+    public function setModelDesarrollo(Relation $modelDesarrollo)
     {
+        $this->modelDesarrollo = $modelDesarrollo;
+    }
+
+    public function crear()
+    {
+        $componente = parent::getValidados();
+
         $campos = [
             'nomb_comp'=>$componente['nombre'],
             'id_componente'=>$componente['id'],
@@ -41,13 +52,15 @@ class Desarrollo extends ValidaDesarrollo
         isset($componente['aporteEstatal'])  ? $campos['aportacion_estatal'] = $componente['aporteEstatal']   : null;
         isset($componente['tipoRecurso'])    ? $campos['tipo_recurso']       = $componente['tipoRecurso']     : null;
 
-        $this->desarrollo = $modeloDesarrollo->create($campos);
+        $this->desarrollo = $this->modelDesarrollo->create($campos);
 
         isset($componente['objetivos']) && is_array($componente['objetivos']) ? $this->crearObjetivo($componente['objetivos'], $campos['indice']) : null;
 
         isset($componente['programa']) && is_array($componente['programa']) ? $this->crearPrograma($componente['programa']) : null;
         isset($componente['actividades']) && is_array($componente['actividades']) ? $this->crearActividad($componente['actividades']) : null;
         isset($componente['acervo']['oficinas']) && is_array($componente['acervo']['oficinas']) ? $this->crearOficinaRPP($componente['acervo']['oficinas']) : null;
+
+        return isset($this->desarrollo->id_desarrollo);
     }
 
     public function crearObjetivo($objetivos, $indice, $seccion = 2)

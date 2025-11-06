@@ -2,6 +2,7 @@
 
 namespace App\Models\Project;
 
+use Illuminate\Database\Eloquent\Relations\{HasOne, HasMany};
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -15,12 +16,12 @@ class Proyecto extends Model
 
     protected $guarded = [];
 
-    public function versiones()
+    public function versiones(): HasMany
     {
         return $this->hasMany(Version::class,'id_proyecto','id_proyecto');
     }
 
-    public function status()
+    public function status(): HasOne
     {
         return $this->hasOne(Estatus::class, 'id_estatus', 'estatus');
     }

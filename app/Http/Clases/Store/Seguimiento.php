@@ -28,8 +28,8 @@ class Seguimiento extends ValidaSeguimiento
         isset($datos['logros'])     ? $campos['logros_aplicacion'] = $datos['logros'] : null;
         isset($datos['objetivo'])   ? $campos['objetivo_gral'] = $datos['objetivo']   : null;
         isset($datos['metas'])      ? $campos['metas_globales'] = $datos['metas']     : null;
-        isset($datos['obsResumen']) ? $campos['observaciones_resumen'] = $datos['obsResumen'] : null;
+        $campos['observaciones_resumen'] = $datos['obsResumen'] ?? '';
 
-        count($campos)>0 ? $this->modeloSeguimiento->create($campos) : null;
+        return count($campos)>0 ? $this->modeloSeguimiento->create($campos) : null;
     }
 }

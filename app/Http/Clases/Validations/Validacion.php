@@ -11,7 +11,7 @@ abstract class Validacion
 {
     protected $validador;
 
-    protected $validados;
+    protected array $campos;
 
     abstract public function rules();
 
@@ -21,20 +21,19 @@ abstract class Validacion
 
     public function __construct(array $datos = [])
     {
-        #$this->datos = $datos;
+        $this->campos = [];
         $this->validate($datos);
     }
 
     public function setValidados(array $entradas = [])
     {
-        $this->validados = $entradas;
+        $this->campos = $entradas;
     }
 
-    public function getValidados()
+    public function getValidados(): array
     {
-        return $this->validados;
+        return $this->campos;
     }
-
 
     public function validate(array $datos)
     {
@@ -65,5 +64,4 @@ abstract class Validacion
 
         return $error;
     }
-
 }

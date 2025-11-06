@@ -3,6 +3,7 @@
 namespace App\Models\Diagnostic\Sigirc;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\{HasOne, HasMany};
 
 class Componente extends Model
 {
@@ -10,15 +11,15 @@ class Componente extends Model
     protected $table = 'tbl_componentes';
     protected $primaryKey = 'componentes_id';
 
-    public function ponderacion()
+    public function ponderacion(): HasOne
     {
         return $this->hasOne(Ponderacion::class,'componentes_id','componentes_id');
     }
-    public function ponderacionanterior()
+    public function ponderacionanterior(): HasOne
     {
         return $this->hasOne(PonderacionAnterior::class,'componentes_id','componentes_id');
     }
-    public function calificaciones()
+    public function calificaciones(): HasMany
     {
         return $this->hasMany(Calificacion::class,'id_componente','componentes_id');
     }
