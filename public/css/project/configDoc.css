@@ -1,0 +1,154 @@
+ body {
+  color: #4F5155;
+  background: #fff;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%  50%;
+  font-size: 10pt;
+  font-family: 'soberanasanscondensed' !important;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.encabezado, table.pie-pagina, table.indice {
+  width: 100%;
+}
+
+table.encabezado {
+  margin-bottom: 35px;
+}
+
+table.pie-pagina td {
+  color: #616161;
+  font-size: 9pt;
+}
+
+.subsecretaria {
+  color: #BA9360 !important;
+  font-size: 22px;
+  font-weight: 900;
+  padding-left: -15px;
+  text-align: center;
+}
+
+.contenido, .subtitulo {
+    margin: 0px;
+    padding: 0px;
+}
+
+.contenido p {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+    text-align: justify;
+}
+
+h1.h1-portada{
+  color: #fff;
+  font-size: 26px;
+  font-weight: regular;
+  letter-spacing: 1px;
+  line-height: 40px;
+  padding: 5px;
+  text-align: center;
+}
+
+.is-italic {
+    font-style: italic !important;
+}
+
+.has-text-left {
+    text-align: left !important;
+}
+
+.has-text-right {
+    text-align: right !important;
+}
+
+.is-size-7 {
+    font-size: 7pt !important;
+}
+
+.has-text-brown {
+    color: #795548 !important;
+}
+
+.has-bg-warning {
+    background: #ffc107 !important;
+}
+
+.has-text-info {
+    color: #2196F3 !important;
+}
+
+.ql-align-justify {
+  text-align: justify !important;
+}
+
+.ql-align-left {
+  text-align: left !important;
+}
+
+.ql-align-right {
+  text-align: right !important;
+}
+
+.ql-align-center {
+  text-align: center !important;
+}
+
+.vertiente-proyecto {
+  color: #4F5155;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 0px !important;
+  padding: 2px !important;
+  text-transform:uppercase;
+  text-align: center !important;
+  text-decoration: none !important;
+}
+
+table.tabla-informativa, table.tabla-resumen {
+  border: 0.2mm solid #ddd;
+  width: 100%;
+}
+
+table.tabla-informativa thead tr th, table.tabla-resumen thead tr th {
+  background: #646569;
+  border: 0.2mm solid #ddd;
+  color: #fff;
+  font-size: 10pt;
+  font-weight: 500px;
+  padding: 4px;
+  text-align: center !important;
+}
+
+table.tabla-informativa tr td {
+  border: 0.3mm solid #ddd;
+  background-color: rgba(255,255,255,.5);
+  font-size: 9pt;
+  padding: 3px;
+  text-align: center;
+}
+
+table.tabla-resumen tr td {
+  border: 0.3mm solid #ddd;
+  background-color: rgba(255,255,255,.5);
+  font-size: 13px;
+  padding: 3px;
+}
+
+table.tabla-informativa thead tr th, table.tabla-resumen thead tr th {
+   text-align: center !important;
+}
+
+table.tabla-informativa tr:nth-child(even) td, table.tabla-resumen tr:nth-child(even) td {
+    background-color: rgba(0,0,0,.05);
+}
+
+table.tabla-informativa tr.trThSecundario th, table.tabla-resumen tr.trThSecundario th {
+  color: #646569;
+  background-color: rgba(0,0,0,.05) !important;
+}

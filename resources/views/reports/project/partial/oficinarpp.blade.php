@@ -1,6 +1,6 @@
 <div class="table-container" style="margin-top:15px;">
     <p>{{$nombre}}</p>
-    <table class="table is-bordered table is-striped">
+    <table class="table is-bordered table is-striped tabla-informativa">
         <thead class="has-background-grey-dark">
             <tr>
                 <th rowspan="2" class="has-text-centered is-vcentered has-text-white-ter">Oficina registral</th>

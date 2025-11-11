@@ -7,7 +7,7 @@ use App\Models\Project\Proyecto;
 use Illuminate\Http\Request;
 
 use App\Http\Clases\Proyecto AS CProyecto;
-use App\Http\Clases\Pdf\{DocPDF, EncabezadoDocPDF, PieDocPDF, PortadaDocPDF, CuerpoDocPDF};
+use App\Http\Clases\Pdf\{DocPDF, EncabezadoDocPDF, PieDocPDF, PortadaDocPDF, CuerpoDocPDF, FormatoDocPDF};
 
 use \Mpdf\Mpdf as PDF;
 
@@ -29,7 +29,8 @@ class PdfController extends Controller
                 'margin_top'=>34,
                 'margin_bottom'=>10,
                 'margin_header'=>10,
-                'margin_footer'=>7,
+                'margin_footer'=>2,
+                'css'=>['source' => public_path('css/project/configDoc.css'), 'mode' => 1],
             ]
         );
 
@@ -38,6 +39,8 @@ class PdfController extends Controller
         $mpdf = new PieDocPDF($mpdf, new CProyecto($proyecto));
 
         $mpdf = new PortadaDocPDF($mpdf, new CProyecto($proyecto));
+
+        $mpdf = new FormatoDocPDF($mpdf, new CProyecto($proyecto));
 
         $mpdf = new CuerpoDocPDF($mpdf, new CProyecto($proyecto), $indice);
 

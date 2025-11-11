@@ -1,7 +1,7 @@
 <div class="content">
     <h5>Personal por perfil profesional</h5>
     <div class="table-container">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white center">Categoría</th>

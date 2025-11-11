@@ -8,6 +8,8 @@ interface Documento
     public function portada($contenido);
     public function pie($contenido);
 
+    public function agregarCSS($pathCSS);
+
     public function escribir($contenido);
     public function agregarPagina($seccion='');
     public function obtenerNumPagina();

@@ -1,4 +1,4 @@
-<table class="table tabla-componentes">
+<table class="table tabla-componentes tabla-informativa">
     <thead class="has-background-grey-dark">
         <tr>
             <th width="10%">{{'#'}}</th>

@@ -2,7 +2,7 @@
     <h4>2.1.{{$subind}} Catastro</h4>
     <section class="antecedente-catastral">
         <h5>Oficinas catastrales</h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white center">Concepto</th>
@@ -18,11 +18,11 @@
                 @endforeach
             </tbody>
         </table>
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         <h5>Predios y cuentas catastrales</h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white">Concepto</th>
@@ -39,11 +39,11 @@
             </tbody>
         </table>
 
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         <h5>Cobertura de la cartografía en Km<sup>2</sup></h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white">Concepto</th>
@@ -60,11 +60,11 @@
             </tbody>
         </table>
 
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         {!! $vistaPersonal !!}
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
     </section>

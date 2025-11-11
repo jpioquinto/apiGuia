@@ -14,6 +14,11 @@ class DocumentoDecorator implements Documento
         $this->doc = $doc;
     }
 
+    public function agregarCSS($pathCSS, int $mode = \Mpdf\HTMLParserMode::HEADER_CSS)
+    {
+        return $this->doc->agregarCSS($pathCSS, $mode);
+    }
+
     public function encabezado($contenido = '')
     {
         return $this->doc->encabezado($contenido);

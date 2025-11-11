@@ -69,7 +69,7 @@ class DesarrolloPDF
 
             $this->docPdf->escribir("<h4>{$indice['hijos'][0]['seccion']}</h4>");
 
-            $this->docPdf->escribir("<div class='text' style='{$this->fontSize}'>{$componente['situacion']}</div>");
+            $this->docPdf->escribir("<div class='contenido' style='{$this->fontSize}'>{$componente['situacion']}</div>");
 
             $indice['hijos'][] = ['num'=>$this->docPdf->obtenerNumPagina(), 'seccion'=>$this->seccion .'.'. $componente['orden'] . '.2 Objetivos y alcances'];
 
@@ -98,7 +98,7 @@ class DesarrolloPDF
 
             $this->docPdf->escribir("<h4>{$indice['hijos'][3]['seccion']}</h4>");
 
-            $this->docPdf->escribir("<div class='text' style='{$this->fontSize}'>{$componente['estrategia']}</div>");
+            $this->docPdf->escribir("<div class='contenido' style='{$this->fontSize}'>{$componente['estrategia']}</div>");
 
             $this->indice[] = $indice;
             /*$vista .= view(

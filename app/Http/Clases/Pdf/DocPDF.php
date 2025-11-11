@@ -15,6 +15,21 @@ class DocPDF implements Documento
     {
         $this->proyecto = $proyecto;
         $this->mpdf     = new PDF($config);
+
+        if (isset($config['css']['source'])) {
+            $this->aplicarEstilos($config['css']['source'], $config['css']['mode'] ?? 1);
+        }
+    }
+
+    public function aplicarEstilos($css, int $mode = \Mpdf\HTMLParserMode::HEADER_CSS)
+    {
+        $this->agregarCSS($css, $mode);
+    }
+
+    public function agregarCSS($pathCSS, int $mode = \Mpdf\HTMLParserMode::HEADER_CSS)
+    {
+        $css = file_get_contents($pathCSS);
+        $this->mpdf->WriteHTML($css, $mode);
     }
 
     public function encabezado($contenido = '')

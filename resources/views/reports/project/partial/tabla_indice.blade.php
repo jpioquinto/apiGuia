@@ -1,9 +1,9 @@
 <table class="indice">
     <thead>
         <tr>
-            <th colspan="3">Titulo</th>
+            <th colspan="3" class="has-text-left">Título</th>
             <th></th>
-            <th>Pag.</th>
+            <th>Pág.</th>
         </tr>
     </thead>
     <tbody>

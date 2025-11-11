@@ -1,4 +1,4 @@
-<table class="tablaPrincipal">
+<table>
     <tr><td colspan="6" style="text-align:center;">{{ $dependencia }}</td></tr>
 </table>
 <table style="width:100%;font-size:12pt;">

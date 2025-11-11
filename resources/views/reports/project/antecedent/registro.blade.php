@@ -2,7 +2,7 @@
     <h4>2.1.{{$subind}} Registro público de la propiedad</h4>
     <section class="antecedente-catastral">
         <h5>Oficinas registrales</h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white center">Concepto</th>
@@ -18,11 +18,11 @@
                 @endforeach
             </tbody>
         </table>
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         <h5>Situación del acervo documental</h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark has-text-centered">
                 <tr>
                     <th class="has-text-white">Concepto</th>
@@ -38,20 +38,20 @@
                 @endforeach
             </tbody>
         </table>
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         {!! $vistaPersonal !!}
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
         <h5>Presupuesto y promedio de ingresos anuales</h5>
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <tbody class="has-text-centered">
                 {!! $ingreso !!}
             </tbody>
         </table>
-        <p class="has-text-right is-size-7">
+        <p class="has-text-right is-size-7 is-italic">
             <strong>Fuente: </strong>Sistema Integral para la Gestión de Información Registral y Catastral - Diagnóstico {{ $anioDiagnostico }}
         </p>
     </section>

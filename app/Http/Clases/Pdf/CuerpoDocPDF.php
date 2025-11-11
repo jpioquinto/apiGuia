@@ -29,7 +29,7 @@ class CuerpoDocPDF extends DocumentoDecorator
 
         parent::__construct($doc);
 
-        $this->setSizeFont($proyecto->getAnio()>=2018 ? 'font-size:11pt!important;' : '');
+        $this->setSizeFont($proyecto->getAnio()>=2018 ? 'font-size:11pt !important;' : '');
 
         $this->generarCuerpoDoc();
     }
@@ -97,7 +97,7 @@ class CuerpoDocPDF extends DocumentoDecorator
     {
         parent::escribir("
             <h2>".mb_strtoupper($seccion)."</h2>
-            <div style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getIntroduccion()}</div>
+            <div class='contenido' style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getIntroduccion()}</div>
         ");
 
         $this->indice[] = ['num'=>parent::obtenerNumPagina(), 'seccion'=>$seccion];
@@ -113,7 +113,7 @@ class CuerpoDocPDF extends DocumentoDecorator
 
         parent::escribir("
             <h3 class='subtitulo'>2.1 Situación General</h3>
-            <div style='{$this->getSizeFont()}'><p>{$this->proyecto->seguimiento->getSituacion()}</p></div>
+            <div class='contenido' style='{$this->getSizeFont()}'><p>{$this->proyecto->seguimiento->getSituacion()}</p></div>
         ");
 
         parent::agregarPagina();
@@ -124,7 +124,7 @@ class CuerpoDocPDF extends DocumentoDecorator
 
         parent::escribir("
             <h3 class='subtitulo'>2.2 Logros de la aplicación del Programa de Modernización</h3>
-            <div style='{$this->getSizeFont()}'><p>{$this->proyecto->seguimiento->getLogro()}</p></div>
+            <div class='contenido' style='{$this->getSizeFont()}'><p>{$this->proyecto->seguimiento->getLogro()}</p></div>
         ");
 
         $this->indice[] = $indice;
@@ -182,7 +182,7 @@ class CuerpoDocPDF extends DocumentoDecorator
 
         parent::escribir("
             <h2>".mb_strtoupper($seccion)."</h2>
-            <div style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getObjetivo()}</div>
+            <div class='contenido' style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getObjetivo()}</div>
         ");
 
         parent::agregarPagina();
@@ -239,7 +239,7 @@ class CuerpoDocPDF extends DocumentoDecorator
 
         parent::escribir("
             <h2>".mb_strtoupper($seccion)."</h2>
-            <div style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getMeta()}</div>
+            <div class='contenido' style='{$this->getSizeFont()}'>{$this->proyecto->seguimiento->getMeta()}</div>
         ");
 
         parent::agregarPagina();

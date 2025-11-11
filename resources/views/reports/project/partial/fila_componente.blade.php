@@ -1,6 +1,6 @@
 <tr class="fila-componente">
-    <td> {{$nombre}} </td>
-    <td> ${{$aporteFederal}} </td>
-    <td> ${{$aporteEstatal}} </td>
-    <td> ${{$total}} </td>
+    <td class="has-text-left"> {{$nombre}} </td>
+    <td class="has-text-right"> ${{$aporteFederal}} </td>
+    <td class="has-text-right"> ${{$aporteEstatal}} </td>
+    <td class="has-text-right"> ${{$total}} </td>
 </tr>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="table-container">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
             <thead class="has-background-grey-dark">
                 <tr>
                     <th colspan="4" class="has-text-centered has-text-white-ter">

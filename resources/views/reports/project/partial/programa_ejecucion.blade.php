@@ -1,4 +1,4 @@
-<table>
+<table class="tabla-informativa">
     <thead style="border:0px;">
         <tr style="border-bottom: 1px solid #000000;background: #4CAF50;font-size: 11px;">
             <th rowspan="2">Componente</th>
