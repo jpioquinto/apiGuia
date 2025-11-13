@@ -28,7 +28,7 @@ class PieDocPDF extends DocumentoDecorator
             'reports/project/partial/pie',
             [
                 'codigo'=>$this->generaCodigo(),
-                'imgQr'=>!$this->proyecto->estaFirmado() ? str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', \QrCode::size(37)->generate('Guía de Proyectos')) : null
+                'imgQr'=>!$this->proyecto->estaFirmado() ? str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', \QrCode::size(35)->generate('Guía de Proyectos')) : null
             ]
         );
     }

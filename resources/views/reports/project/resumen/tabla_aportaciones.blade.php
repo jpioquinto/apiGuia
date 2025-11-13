@@ -1,12 +1,12 @@
-<table style="margin-top: 10px !important;">
+<table>
 	<tr>
 		<td width="20%"></td>
 		<td>
             <table class="table is-bordered is-striped is-narrow is-hoverable tabla-informativa" id="tabla-aportaciones" style="border: 1px solid #efefef;width:100%;">
                 <thead class="has-background-grey-dark">
                     <tr>
-                        <th class="has-text-centered is-vcentered has-text-white-ter" colspan="4" style="background: #616161 !important;">
-                            <h6 style="text-align: center !important;color: #FFFFFF !important;">
+                        <th class="has-text-centered is-vcentered has-text-white-ter" colspan="4" style="background: #616161;">
+                            <h6 style="text-align: center;color: #FFFFFF;">
                                 DISTRIBUCIÓN DEL RECURSO PARA LA EJECUCIÓN DEL PROYECTO
                             </h6>
                         </th>

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="table-container">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa tabla-situacion">
             <thead class="has-background-grey-dark">
                 <tr>
                     <th colspan="4" class="has-text-centered has-text-white-ter">
@@ -8,10 +8,10 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="has-text-white-ter">Componente</th>
-                    <th class="has-text-centered has-text-white-ter">Modelo Óptimo de Catastro SEDATU</th>
-                    <th class="has-text-centered has-text-white-ter">Diagnóstico {{ $anio }}</th>
-                    <th class="has-text-centered has-text-white-ter">Estimación de avance  {{ $anioProyecto }}</th>
+                    <th class="has-text-white-ter" style="width:40%;">Componente</th>
+                    <th class="has-text-centered has-text-white-ter" style="width:20%;">Modelo Óptimo de Catastro SEDATU</th>
+                    <th class="has-text-centered has-text-white-ter" style="width:20%;">Diagnóstico {{ $anio }}</th>
+                    <th class="has-text-centered has-text-white-ter" style="width:20%;">Estimación de avance  {{ $anioProyecto }}</th>
                 </tr>
             </thead>
             <tbody>{!! $filas !!}</tbody>

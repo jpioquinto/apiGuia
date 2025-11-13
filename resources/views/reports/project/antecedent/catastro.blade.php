@@ -1,5 +1,5 @@
 <div class="content">
-    <h4>2.1.{{$subind}} Catastro</h4>
+    <h4 style="display: none;">2.1.{{$subind}} Catastro</h4>
     <section class="antecedente-catastral">
         <h5>Oficinas catastrales</h5>
         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth tabla-informativa">
@@ -9,11 +9,14 @@
                     <th class="has-text-white center">Cantidad</th>
                 </tr>
             </thead>
-            <tbody class="has-text-centered">
+            <tbody>
                 @foreach ($oficinas as $oficina)
+                    @php
+                        $resaltar = $loop->last ? 'texto-resaltado' : 'texto-normal';
+                    @endphp
                     <tr>
-                        <td>{{ $oficina['concepto'] }}</td>
-                        <td>{{ $oficina['cantidad'] }}</td>
+                        <td class="{{ $resaltar }}">{{ $oficina['concepto'] }}</td>
+                        <td class="{{ $resaltar }}">{{ $oficina['cantidad'] }}</td>
                     </tr>
                 @endforeach
             </tbody>

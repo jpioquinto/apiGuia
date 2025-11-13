@@ -20,13 +20,13 @@
     </table>
 
     @if ($anio>2020)
-        <div>
+        <div style="margin-top: 10px;">
             {!! $tabla_aportaciones !!}
         </div>
     @endif
-    <span style="font-size:12px;font-weight:bold;font-style: italic;">
+    <p class="has-text-justify" style="font-size:9pt;font-weight:bold;font-style:italic;margin:0px;padding:0px;">
         (*) Este {{ $anio<2018 ? 'porcentaje' : 'monto' }} incluye el pago de la vigilancia, inspección, control y evaluación de la ejecución de Programa, conforme a la Ley Federal de Presupuesto y Responsabilidad Hacendaria y su reglamento.
-    </span>
+    </p>
     @if (!empty($observaciones))
         <div class="content-observaciones">
             <h5 style="margin-top:30px;">Observaciones del resumen financiero</h5>

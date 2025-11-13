@@ -80,7 +80,7 @@ class Situacion
                 ->with(
                     ($this->diagnostico->ano_proyecto >= 2017 ? 'ponderacion' : 'ponderacionanterior'),
                     'calificaciones'
-                )                
+                )
                 ->where('modelos_id',$vertiente)
                 ->whereNotIn('componentes_id', [17,18])
                 #->groupBy('componentes_id')
@@ -206,7 +206,7 @@ class Situacion
     }
     protected function iconoAvance()
     {
-        return '<span class="icon is-small"><i class="mdi mdi-arrow-up-bold has-text-success"></i></span>';
+        return '<span style="font-size:14pt;font-weight:bold;color:#0C7D02;">^</span>';
     }
     protected function setearTotalPonderacion($ponderacion)
     {

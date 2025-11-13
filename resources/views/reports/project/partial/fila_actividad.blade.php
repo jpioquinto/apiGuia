@@ -4,7 +4,7 @@
     <td> {{$descEntregable}} </td>
     <td> {{$descUnidad}} </td>
     <td> {{$cantidad}} </td>
-    <td> ${{$costo}} </td>
-    <td> ${{$iva}} </td>
-    <td> ${{$total}} </td>
+    <td style="text-align:right;">${{$costo}}</td>
+    <td style="text-align:right;">{{$iva}}</td>
+    <td style="text-align:right;">${{$total}}</td>
 </tr>

@@ -1,4 +1,4 @@
-<table class="tabla-informativa">
+<table class="tabla-actividades">
     <thead>
       <tr>
         <th style="width:20%;">Actividad</th>
@@ -21,8 +21,8 @@
         @if (!empty($filas))
             <tfoot>
                 <tr>
-                    <td colspan="7" class="has-text-right" style="font-weight: bold;">Total:....</td>
-                    <td class="has-text-right" style="font-weight: bold;">{{$total}}</td>
+                    <td colspan="7" style="font-weight: bold;text-align:right;font-size:9pt;">Total:</td>
+                    <td style="font-weight: bold;text-align:right;font-size:9pt;">{{$total}}</td>
                 </tr>
             </tfoot>
         @endif

@@ -12,11 +12,14 @@
             </thead>
             <tbody class="has-text-centered">
                 @foreach ($datos as $dato)
+                    @php
+                        $resaltar = $loop->last ? 'texto-resaltado' : 'texto-normal';
+                    @endphp
                     <tr>
-                        <td>{{ $dato->categoria }}</td>
-                        <td>{{ $dato->confianza }}</td>
-                        <td>{{ $dato->honorarios }}</td>
-                        <td>{{ $dato->cantidad }}</td>
+                        <td class="{{ $resaltar }}">{{ $dato->categoria }}</td>
+                        <td class="{{ $resaltar }}">{{ $dato->confianza }}</td>
+                        <td class="{{ $resaltar }}">{{ $dato->honorarios }}</td>
+                        <td class="{{ $resaltar }}">{{ $dato->cantidad }}</td>
                     </tr>
                 @endforeach
             </tbody>
