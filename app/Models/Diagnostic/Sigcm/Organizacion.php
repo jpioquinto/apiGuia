@@ -2,8 +2,9 @@
 
 namespace App\Models\Diagnostic\Sigcm;
 
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Project\Proyecto;
 
 class Organizacion extends Model
 {
@@ -15,4 +16,10 @@ class Organizacion extends Model
     {
         return $this->belongsTo(Estado::class, 'estados_id', 'estados_id');
     }
+
+    public function proyectos(): HasMany
+    {
+        return $this->hasMany(Proyecto::class, 'id_organizacion', 'id_organizacion');
+    }
+
 }

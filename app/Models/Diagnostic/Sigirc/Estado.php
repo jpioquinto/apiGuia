@@ -15,4 +15,9 @@ class Estado extends Model
     {
         return $this->hasMany(Municipio::class, 'estado_id', 'estados_id');
     }
+
+    public function organizaciones(): HasMany
+    {
+        return $this->hasMany(Organizacion::class, 'estados_id', 'estados_id');
+    }
 }

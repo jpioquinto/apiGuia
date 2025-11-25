@@ -36,13 +36,13 @@ class AuthController extends Controller
         return response([
                     'user' => [
                         'nickname'=> auth()->user()->nickname,
+                        'rol'=>in_array(auth()->user()->perfiles_id, [6,7,14]) ? 'user' : 'admin',
                         'nombre'=>(auth()->user()->directorio->nombre_completo ?: auth()->user()->nickname),
-                        'acciones'=>$this->obtenerPermisos(auth()->user()->usuarios_id, auth()->user()->perfiles_id)
+                        'acciones'=>$this->obtenerPermisos(auth()->user()->usuarios_id, auth()->user()->perfiles_id),
                     ],
                     'access_token' => $resultToken->plainTextToken,
                     'token_type'   => 'Bearer',
                     'expires_at'   => Carbon::parse($resultToken->accessToken->expires_at)->toDateTimeString(),
-                    'config'=>$this->header()
                 ], 200);
     }
     public function logout(Request $request)
@@ -57,10 +57,7 @@ class AuthController extends Controller
             'message' =>'Sessión cerrada correctamente.'
         ],200);
     }
-    protected function header()
-    {
-        return ['logo'=>asset('images/logos/gob-mx.svg')];
-    }
+
     protected function obtenerPermisos($userId, $perfilId)
     {
         $permisos = Permiso::where(function ($query) use ($userId, $perfilId) {

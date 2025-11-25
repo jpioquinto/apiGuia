@@ -13,6 +13,9 @@ Route::get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [\App\Http\Controllers\API\AuthController::class, 'logout']);
     Route::get('/pasos', [\App\Http\Controllers\API\LayoutController::class, 'index'])->name('layout.index');
+    Route::get('/anios-proyectos', [\App\Http\Controllers\API\DashboardController::class, 'listarAnios'])->name('dashboard.anios');
+    Route::get('/entidades-proyectos/{anio}', [\App\Http\Controllers\API\DashboardController::class, 'listarEntidades'])->where('anio', '[0-9]+')->name('dashboard.entidades');
+    Route::get('/listado-proyectos/{anio}/{edoId}', [\App\Http\Controllers\API\DashboardController::class, 'listarProyectos'])->where(['anio'=>'[0-9]+', 'edoId'=>'[0-9]+'])->name('dashboard.proyectos');
     Route::get('/introduccion/{id}', [\App\Http\Controllers\API\ProyectoController::class, 'index'])->where('id', '[0-9]+')->name('project.index');
     Route::post('/save', [\App\Http\Controllers\API\ProyectoController::class, 'save']);
 
