@@ -13,12 +13,13 @@ use \Mpdf\Mpdf as PDF;
 
 class PdfController extends Controller
 {
-    public function index(Proyecto $proyecto)
+    #public function index(Proyecto $proyecto)
+    public function index(Request $request)
     {
-        return $this->crearPDF($proyecto);
+        return $this->crearPDF(Proyecto::where('id_proyecto', $request->proyectoId)->first(), $request->completo === 'true' );
     }
 
-    protected function crearPDF(Proyecto $proyecto, $indice = [])
+    protected function crearPDF(Proyecto $proyecto, $completo = true, $indice = [])
     {
         $mpdf = new DocPDF(
             new CProyecto($proyecto),
@@ -27,11 +28,12 @@ class PdfController extends Controller
                 'margin_left'=>20,
                 'margin_right'=>20,
                 'margin_top'=>34,
-                'margin_bottom'=>15,
+                'margin_bottom'=>16,
                 'margin_header'=>10,
                 'margin_footer'=>7,
                 'css'=>['source' => public_path('css/project/configDoc.css'), 'mode' => 1],
-            ]
+            ],
+            $completo
         );
 
         $mpdf = new EncabezadoDocPDF($mpdf, $proyecto->anio);
@@ -44,6 +46,6 @@ class PdfController extends Controller
 
         $mpdf = new CuerpoDocPDF($mpdf, new CProyecto($proyecto), $indice);
 
-        return !$mpdf->existeIndice() ? $this->crearPDF($proyecto, $mpdf->obtenerIndice()) : $mpdf->salida();
+        return !$mpdf->existeIndice() ? $this->crearPDF($proyecto, $completo, $mpdf->obtenerIndice()) : $mpdf->salida();
     }
 }

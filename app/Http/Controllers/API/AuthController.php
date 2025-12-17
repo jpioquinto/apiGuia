@@ -70,13 +70,17 @@ class AuthController extends Controller
             $acciones = array_merge($acciones, explode(',', $value->acciones));
         });
         $acciones = array_unique($acciones);
-        $accionesDB = Accion::where(function ($query) use ($acciones) {
-            $query->whereIn('id_acciones', $acciones);
-        })->get();
+        $accionesDB = Accion::query()
+                    ->select(['id_acciones', 'accion', 'modulo', 'clases', 'icono', 'orden'])
+                    ->where(function ($query) use ($acciones) {
+                        $query->whereIn('id_acciones', $acciones);
+                    })->get();
 
         $listar = [];
         $accionesDB->each(function ($value, $key) use (&$listar){
-            $listar[$value->id_acciones] = $value->accion;
+            $id = $value->id_acciones;
+            unset($value->id_acciones);
+            $listar[$id] = $value;
         });
 
         return $listar;

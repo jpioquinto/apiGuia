@@ -17,7 +17,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/entidades-proyectos/{anio}', [\App\Http\Controllers\API\DashboardController::class, 'listarEntidades'])->where('anio', '[0-9]+')->name('dashboard.entidades');
     Route::get('/listado-proyectos/{anio}/{edoId}', [\App\Http\Controllers\API\DashboardController::class, 'listarProyectos'])->where(['anio'=>'[0-9]+', 'edoId'=>'[0-9]+'])->name('dashboard.proyectos');
     Route::get('/introduccion/{id}', [\App\Http\Controllers\API\ProyectoController::class, 'index'])->where('id', '[0-9]+')->name('project.index');
-    Route::post('/save', [\App\Http\Controllers\API\ProyectoController::class, 'save']);
 
     Route::get('/antecedente/{id}/{idDiagnostico}',[\App\Http\Controllers\API\AntecedenteController::class, 'index'])->where(['id'=>'[0-9]+', 'idDiagnostico'=>'[0-9]+'])
     ->name('antecedent.index');
@@ -53,9 +52,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/oficinas/{proyecto}', [\App\Http\Controllers\API\OficinaController::class, 'listado'])
     ->where(['proyecto'=>'[0-9]+'])
     ->name('oficina.listado');
-    Route::get('/pdf/{proyecto}', [\App\Http\Controllers\API\PdfController::class, 'index'])
-    ->where(['proyecto'=>'[0-9]+'])
+    Route::get('/pdf/{proyectoId}/{completo}', [\App\Http\Controllers\API\PdfController::class, 'index'])
+    ->where(['proyectoId'=>'[0-9]+'])
     ->name('pdf.index');
 
     Route::post('/save', [\App\Http\Controllers\API\ProyectoController::class, 'save']);
+    Route::post('/proyecto/upload-anexo', [\App\Http\Controllers\API\AnexoController::class, 'upload']);
 });

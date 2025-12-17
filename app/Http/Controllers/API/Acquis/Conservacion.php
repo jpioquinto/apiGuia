@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API\Acquis;
 
-use Illuminate\Support\Arr;
 use App\Models\Diagnostic\Sigirc\Sigirc;
 use App\Models\Project\Config\Antecedente;
 use App\Http\Traits\TraitDiagnostico;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Arr;
 
 class Conservacion
 {
@@ -17,13 +18,14 @@ class Conservacion
     {
         $this->diagnostico = $this->obtenerDiagnostico($idDiagnostico);
         $this->config = $this->obtenerConfiguracion($vertiente);
+        #Log::info('config:', ['data'=>$this->config]);
     }
 
     public function obtenerConfiguracion($vertiente)
     {
         return Antecedente::where('vertiente', $vertiente)
                             ->where('estatus', $this->obtenerEstatus($this->obtenerAnioDiagnostico()))
-                            ->get();
+                            ->get() ?? collect();
     }
 
     public function obtenerOficinas($info = 'oficinas')
@@ -38,7 +40,7 @@ class Conservacion
     }
 
     public function procesarListadoOficinas($listado, $capturas)
-    {
+    {#Log::info('procesarListadoOfi...', ['listado'=>$listado, 'capturas'=>$capturas]);
         return  $listado->map(function ($value, $key) use ($capturas) {
             $value['agregada'] = $capturas->count()>0 ? $capturas->contains('oficina', $value->detalle_oficinas_id) : false;
             return $value;
@@ -47,11 +49,11 @@ class Conservacion
 
     protected function obtenerDetalleDiagnostico($antecedente)
     {
-        if ( ($config=$this->obtenerConfig($antecedente)) == null ) {
-            return;
+        if ( count($config=$this->obtenerConfig($antecedente)) == 0 ) {
+            return colect();
         }
 
-        $parametros = explode(',',$config->parametro_id);
+        $parametros = explode(',',$config['parametro_id']);
 
         return $this->diagnostico->detalles->filter(function ($value, $key) use ($parametros) {
             return in_array($value['parametros_id'], $parametros)===TRUE;
@@ -67,8 +69,8 @@ class Conservacion
 
     protected function obtenerConfig($antecedente)
     {
-        $config = Arr::first($this->config, function ($value, $key) use ($antecedente) {
-            return $value->antecedente === $antecedente;
+        $config = Arr::first($this->config->toArray(), function ($value, $key) use ($antecedente) {
+            return $value['antecedente'] === $antecedente;
         });
         return $config;
     }

@@ -35,6 +35,11 @@ abstract class Validacion
         return $this->campos;
     }
 
+    public function existsError()
+    {
+        return $this->validador->fails();
+    }
+
     public function validate(array $datos)
     {
         try {

@@ -145,9 +145,9 @@ class Desarrollo
                 'anexos'=>$this->procesarAnexo($value->anexos),
                 'conIVA'=>$value['con_iva'],
                 'toggleText'=>true,
-                'placeHolderDescAct'=>$this->limpiarHTML($value->catactividad->actividad, 42),
-                'placeHolderDesc'=>$this->limpiarHTML($value['descripcion'], 42),
-                'placeHolderEnt'=>$this->limpiarHTML($value->entregable->entregable, 42)
+                'placeHolderDescAct'=>$value->catactividad->actividad,#$this->limpiarHTML($value->catactividad->actividad, 42),
+                'placeHolderDesc'=>$value['descripcion'],#$this->limpiarHTML($value['descripcion'], 42),
+                'placeHolderEnt'=>$value->entregable->entregable,#$this->limpiarHTML($value->entregable->entregable, 42)
             ]);
             $this->totalComponente += $total;
         });

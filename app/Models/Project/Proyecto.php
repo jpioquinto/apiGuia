@@ -42,6 +42,10 @@ class Proyecto extends Model
 
     public function esEstatal(): bool
     {
+        if (!isset($this->organizacion)) {
+            return $this->id_app_diag==1;
+        }
+
         return $this->id_app_diag==1 && $this->organizacion->tipo != 3;
     }
 
@@ -67,5 +71,10 @@ class Proyecto extends Model
         $vertientes = ['1'=>'PEMC', '2'=>'PEMR', '1,2'=>'PEMI'];
 
         return $vertientes[$this->vertiente] ?: '';
+    }
+
+    public function getVersionAttribute()
+    {
+        return $this->versiones->max('version');
     }
 }

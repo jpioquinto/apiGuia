@@ -37,6 +37,11 @@ class Usuario
         return $this->registro->directorio->organizacion->nombre_organizacion;
     }
 
+    public function getCarpeta()
+    {
+        return $this->registro->directorio->organizacion->carpeta_documentos;
+    }
+
     public function getCargo()
     {
         return $this->registro->directorio->cargo_actual;

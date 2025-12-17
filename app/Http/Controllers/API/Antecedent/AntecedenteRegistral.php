@@ -32,7 +32,7 @@ class AntecedenteRegistral extends Antecedentes
 
         $config=$this->obtenerConfig('acervo');
 
-        return $this->procesarSituacionAcervo($detalle, json_decode($config->extra, true));
+        return $this->procesarSituacionAcervo($detalle, json_decode($config['extra'] ?? [], true));
     }
     protected function obtenerPresupuestoAnual()
     {

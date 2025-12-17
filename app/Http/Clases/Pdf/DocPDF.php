@@ -11,7 +11,7 @@ class DocPDF implements Documento
     protected $proyecto;
     protected $mpdf;
 
-    public function __construct(Proyecto $proyecto, $config = [])
+    public function __construct(Proyecto $proyecto, $config = [], $completo = true)
     {
         $this->proyecto = $proyecto;
         $this->mpdf     = new PDF($config);
