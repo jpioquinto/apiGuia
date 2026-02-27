@@ -58,4 +58,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/save', [\App\Http\Controllers\API\ProyectoController::class, 'save']);
     Route::post('/proyecto/upload-anexo', [\App\Http\Controllers\API\AnexoController::class, 'upload']);
+    Route::post('/cambiar-estatus/proyecto', [\App\Http\Controllers\API\ProyectoController::class, 'changeStatus']);
+    Route::post('/enviar-revision/proyecto', [\App\Http\Controllers\API\Signature\RevisionController::class, 'revision']);
+    Route::post('/validar-fiel', [\App\Http\Controllers\API\Signature\FirmaController::class, 'validar']);
+    Route::post('/firmar/proyecto', [\App\Http\Controllers\API\Signature\FirmaController::class, 'firmar']);
+    Route::get('/proyecto/anexo/{nombre}/{proyectoId}', [\App\Http\Controllers\API\AnexoController::class, 'getAnexo']);
 });

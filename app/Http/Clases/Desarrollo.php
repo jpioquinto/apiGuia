@@ -3,7 +3,9 @@
 namespace App\Http\Clases;
 
 use App\Http\Controllers\API\Acquis\Conservacion;
+use App\Models\Project\Anexo AS ModelAnexo;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
 
 class Desarrollo
 {
@@ -12,8 +14,10 @@ class Desarrollo
     protected $totalComponente;
     protected $componentesModelo;
 
-    protected $desarrollo;
     protected $idDiagnostico;
+    protected $desarrollo;
+    protected $anio;
+    protected $env;
 
     public const IVA=0.16;
 
@@ -39,6 +43,10 @@ class Desarrollo
         $this->idDiagnostico = $idDiagnostico;
 
         $this->oficinas      = collect();
+
+        $this->anio = date('Y');
+
+        $this->env = Config::get('filesystems.default');
     }
 
     public function getHomologos()
@@ -49,6 +57,16 @@ class Desarrollo
     public function getNumDeC()
     {
         return $this->numDec;
+    }
+
+    public function setAnio(int $anio)
+    {
+        $this->anio = $anio;
+    }
+
+    public function getAnio(): int
+    {
+        return $this->anio;
     }
 
     public function setOficinas($oficinas)
@@ -203,7 +221,13 @@ class Desarrollo
     {
         $anexo = collect();
         $registros->each(function($value, $index) use (&$anexo) {
-            $value['url'] = $this->obtenerUrlDocumento($value['nombre'], $value['nombre_anterior']);
+            $value['url']= $this->obtenerUrlDocumento($value['nombre']);
+
+            if ($value['url']==='') {
+                ModelAnexo::where('id_anexo', $value['id_anexo'])->delete();
+                return true;
+            }
+
             $value['nombre_anterior'] = mb_strtoupper($value['nombre_anterior']);
             $value['descripcion'] = mb_strtoupper($value['descripcion']);
             $anexo[$index] = $value;
@@ -276,10 +300,10 @@ class Desarrollo
         return trim( end($doc) );
     }
 
-    protected function obtenerUrlDocumento($nombreDoc, $nombreOriginal)
+    protected function obtenerUrlDocumento($nombreDoc)
     {
-        $ruta = "/documentos/{$this->carpeta}/{$nombreDoc}.".$this->obtenerExtension($nombreOriginal);
-        return Storage::disk('public')->exists($ruta) ? asset("storage{$ruta}") : '';
+        $ruta = "/documentos/{$this->carpeta}/{$this->getAnio()}/anexos/{$nombreDoc}";
+        return Storage::disk($this->env)->exists($ruta) ? asset("storage{$ruta}") : '';
     }
 
     protected function obtenerOficinasRegistrales($idDiagnostico, $capturas)

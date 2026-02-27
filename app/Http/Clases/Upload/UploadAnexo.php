@@ -22,7 +22,7 @@ class UploadAnexo extends ValidaUploadAnexo
 
     public function __construct(Request $request)
     {
-        $this->env = Config::get('env') == 'production' ? 's3' : 'local';
+        $this->env = Config::get('filesystems.default');
 
         parent::__construct($request->all());
         $this->setRequest($request);
@@ -94,10 +94,12 @@ class UploadAnexo extends ValidaUploadAnexo
 
     protected function move()
     {
-        $nombre = rtrim($this->request->get('nombre'), ".{$this->request->file('archivo')->extension()}");
+
+        $nombre = CadenaHelper::removeExtension($this->request->get('nombre'));
+
         $load = $this->request->file('archivo')->storePubliclyAs(
             $this->getDirectory(),
-            $this->fileName(CadenaHelper::clearFileName($nombre)) . "." .$this->request->file('archivo')->extension(),
+            $this->fileName(CadenaHelper::clearFileName($nombre)) . "." .trim($this->request->file('archivo')->extension()),
             $this->env
         );
 

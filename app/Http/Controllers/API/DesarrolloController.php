@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Clases\{Proyecto as CProyecto, Desarrollo};
 use App\Http\Controllers\Controller;
-use App\Models\Project\{Proyecto};
+use App\Models\Project\Proyecto;
 
 class DesarrolloController extends Controller
 {
@@ -29,6 +29,7 @@ class DesarrolloController extends Controller
                         $cProyecto->getIdDiagnostico(),
                         $cProyecto->getCarpeta()
                     );
+        $desarrollo->setAnio($cProyecto->getAnio());
 
         if (strcmp($proyecto->vertiente, '1,2')==0) {
             return [

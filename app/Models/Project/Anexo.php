@@ -14,8 +14,8 @@ class Anexo extends Model
 
     protected $guarded = [];
 
-    public function getUrlAttribute()
+    /*public function getUrlAttribute()
     {
         return '';
-    }
+    }*/
 }

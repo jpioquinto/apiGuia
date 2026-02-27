@@ -16,6 +16,7 @@ class ValidaAnexo extends Validacion
             'nombre_anterior'=>'required',
             'descripcion'=>'required',
             'ext'=>'nullable|string',
+            'id_anexo'=>'required',
         ];
     }
 
@@ -26,6 +27,7 @@ class ValidaAnexo extends Validacion
             'nombre_anterior.required'=>"El :attribute es requerido.",
             'descripcion.required'=>"La :attribute es requerida de manera clara y resumida.",
             'ext.string'=>"La :attribute debe ser una cadena.",
+            'id_anexo.required'=>"El :attribute es requerido.",
         ];
     }
 
@@ -36,6 +38,7 @@ class ValidaAnexo extends Validacion
             'nombre_anterior'=>'nombre original del documento',
             'descripcion'=>'descripción del anexo',
             'ext'=>'extensión del documento',
+            'id_anexo'=>'identificador único del anexo',
         ];
     }
 }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\Antecedent\Antecedentes;
 use App\Http\Clases\Store\{Proyecto as StoreProyecto};
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,20 @@ class ProyectoController extends Controller
 
     public function test()
     {#Proyecto::where('id_proyecto', 41500)->first()
-        return response(['solicitud'=>true, 'message'=>'prueba', 'proyecto'=>$this->obtenerProyecto(415)], 200);
+        return response(['solicitud'=>true, 'message'=>Config::get('filesystems.default'), 'proyecto'=>$this->obtenerProyecto(415)], 200);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $proyecto = Proyecto::where('id_proyecto', $request->id)->first();
+        if ($proyecto) {
+            $proyecto->estatus = $request->estatus;
+            if ($proyecto->save()) {
+                return response(['solicitud'=>true, 'message'=>'Estatus del proyecto actualizado correctamente.'], 200);
+            }
+            return response(['solicitud'=>false, 'message'=>'Error al actualizar el estatus del proyecto.'], 400);
+        }
+        return response(['solicitud'=>false, 'message'=>'Proyecto no encontrado.'], 404);
     }
 
     public function save(Request $request)

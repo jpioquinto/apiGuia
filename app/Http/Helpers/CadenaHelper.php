@@ -12,4 +12,24 @@ class CadenaHelper
         );
     }
 
+    static function extension(string $nombreDoc): string
+    {
+        $doc = explode('.', $nombreDoc);
+        return trim( end($doc) );
+    }
+
+    static function removeExtension(string $nombreDoc): string
+    {
+        $doc = explode('.', $nombreDoc);
+        array_pop($doc);
+        return implode('.', $doc);
+    }
+
+    static function getNameToPath(string $path): string
+    {
+        $data = explode('/', $path);
+        $fileName = array_pop($data);
+        return $fileName;
+    }
+
 }
