@@ -163,6 +163,11 @@ class Proyecto
         return $this->modelo->id_app_diag;
     }
 
+    public function getEntidad()
+    {
+        return $this->organizacion->estado->estado ?? '';
+    }
+
     public function getInstitucion()
     {
         return $this->organizacion->getNombre();

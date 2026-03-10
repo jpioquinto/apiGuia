@@ -4,7 +4,7 @@ namespace App\Http\Clases\Validations;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rules\File;
-
+# ['required', FILE::types(['cer', 'crt', 'csr', 'bin'])->max(Config::get('max_size', 25) . 'mb')]
 class ValidaUploadFiel extends Validacion
 {
     public function __construct(array $datos = [])
@@ -16,7 +16,7 @@ class ValidaUploadFiel extends Validacion
     {
         return [
             'proyectoId'=>'nullable|numeric',
-            'archivoCer'=>['required', FILE::types(['cer', 'crt', 'csr', 'bin'])->max(Config::get('max_size', 25) . 'mb')],
+            'archivoCer'=>'required|file|mimes:bin|max:'.(Config::get('max_size', 25) * 1024),
             'archivoKey'=>['required', FILE::types(['key', 'bin'])->max(Config::get('max_size', 25) . 'mb')],
         ];
     }

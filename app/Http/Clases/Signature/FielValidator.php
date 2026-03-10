@@ -2,8 +2,60 @@
 
 namespace App\Http\Clases\Signature;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
+use App\Http\Helpers\CadenaHelper;
+
 class FielValidator
 {
+    public static function getEnv()
+    {
+        return Config::get('filesystems.default');
+    }
+    /**
+     * convert a certificate file to PEM format if it's not already, and return the PEM string.
+     * Returns cert PEM.
+     *
+     * @param string $certPath
+     * @return string
+     */
+    public static function certToPem(string $certPath): string
+    {
+        if (!Storage::disk(self::getEnv())->exists($certPath)) {
+            throw new \RuntimeException("Certificado no encontrado: {$certPath}");
+        }
+
+        $data = Storage::disk(self::getEnv())->get($certPath);
+        if ($data === false) {
+            throw new \RuntimeException('No se pudo leer el certificado');
+        }
+
+        if (strpos($data, '-----BEGIN CERTIFICATE-----') !== false) {
+            return $data;
+        }
+
+        $b64 = chunk_split(base64_encode($data), 64, "\n");
+        return "-----BEGIN CERTIFICATE-----\n" . $b64 . "-----END CERTIFICATE-----\n";
+    }
+    /**
+     * convert a certificate file to PEM format if it's not already, and return the PEM string.
+     * Returns cert PEM.
+     *
+     * @param string $certPath
+     * @return string
+     */
+    public static function keyToPem(string $keyPath, string $password = ''): string|null
+    {
+        $pathPEM = CadenaHelper::removeExtension($keyPath) . '.pem';
+        $pKey = shell_exec(
+            sprintf(
+                "openssl pkcs8 -inform DER -in %s -passin pass:%s -out %s",
+                Storage::disk(self::getEnv())->path($keyPath), $password,
+                Storage::disk(self::getEnv())->path($pathPEM)
+                )
+            );
+        return Storage::disk(self::getEnv())->exists($pathPEM) ? $pathPEM : null;
+    }
     /**
      * Validate a certificate and private key (PEM or PFX).
      * Returns an array with solicitud flag and details or error message.
@@ -16,16 +68,17 @@ class FielValidator
     public static function validate(string $certPath, string $keyPath, string $password = ''): array
     {
         try {
-            if (!file_exists($certPath)) {
+            if (!Storage::disk(self::getEnv())->exists($certPath)) {
                 throw new \Exception("Certificado no encontrado: $certPath");
             }
 
-            if (!file_exists($keyPath)) {
+            if (!Storage::disk(self::getEnv())->exists($keyPath)) {
                 throw new \Exception("Llave no encontrada: $keyPath");
             }
 
-            $certContent = file_get_contents($certPath);
-            $keyContent = file_get_contents($keyPath);
+            $certContent = Storage::disk(self::getEnv())->get($certPath);
+            $keyContent = Storage::disk(self::getEnv())->get($keyPath);
+            #$keyContent = Storage::disk(self::getEnv())->get('temp/signature/00001000000517964209/keyPEM.pem');
 
             $parsed = [];
 
@@ -44,8 +97,9 @@ class FielValidator
                 $certPem = $certs['cert'] ?? null;
                 $pkeyPem = $certs['pkey'] ?? null;
             } else {
-                $certPem = $certContent;
-                $pkeyPem = $keyContent;
+                $pemPath = self::keyToPem($keyPath, $password);
+                $certPem = self::certToPem($certPath);
+                $pkeyPem = $pemPath ? Storage::disk(self::getEnv())->get($pemPath): $keyContent;
             }
 
             if (empty($certPem) || empty($pkeyPem)) {
@@ -71,14 +125,23 @@ class FielValidator
             }
 
             # Check private key can be read (with or without password)
-            $pkey = @openssl_pkey_get_private($pkeyPem, $password ?: null);
+            #$pkey = @openssl_pkey_get_private($keyContent, $password ?: null);
+            $pkey = @openssl_pkey_get_private($pkeyPem, 'piokoro-san');
+            #$pkey = @openssl_pkey_get_private($keyContent);
+
             if ($pkey === false) {
-                throw new \Exception('No se pudo leer la llave privada con la contraseña proporcionada.');
+                throw new \Exception('No se pudo leer la llave privada con la contraseña proporcionada. :( '.openssl_error_string());
             }
 
             $pubkey = openssl_pkey_get_public($certPem);
 
             if (!self::privateKeyMatchesCert($pkey, $pubkey)) {
+                if ($pkey) {
+                    @openssl_free_key($pkey);
+                }
+                if ($pubkey) {
+                    @openssl_free_key($pubkey);
+                }
                 throw new \Exception('FIEL No válida.');
             }
 
@@ -88,8 +151,8 @@ class FielValidator
                 'subject' => $certInfo['subject'] ?? null,
                 'issuer' => $certInfo['issuer'] ?? null,
                 'serialNumber' => $certInfo['serialNumberHex'] ?? ($certInfo['serialNumber'] ?? null),
-                'validFrom' => $validFrom ? date('c', $validFrom) : null,
-                'validTo' => $validTo ? date('c', $validTo) : null,
+                'validFrom' => $certInfo ? date('c', $certInfo['validFrom_time_t']) : null,
+                'validTo' => $certInfo ? date('c', $certInfo['validTo_time_t']) : null,
                 'signatureAlgorithm' => $certInfo['signatureTypeSN'] ?? ($certInfo['signatureTypeLN'] ?? null),
             ];
 

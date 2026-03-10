@@ -31,7 +31,7 @@ class UploadFiel extends ValidaUploadFiel
         $this->setRequest($request);
 
         $this->setDirectory(
-            sprintf("temp/signature/%s/", ($this->request->file('archivoCer'))->getClientOriginalName())
+            sprintf("temp/signature/%s", CadenaHelper::removeExtension( ($this->request->file('archivoCer'))->getClientOriginalName()) )
         );
     }
 
@@ -114,20 +114,16 @@ class UploadFiel extends ValidaUploadFiel
         ];
     }
 
-    protected function move(File $archivo)
+    protected function move($archivo)
     {
 
         $nombre = CadenaHelper::clearFileName($archivo->getClientOriginalName());
 
-        if (Storage::disk($this->env)->exists($this->getDirectory() . "{$nombre}.{$archivo->getClientOriginalExtension()}")) {
-            Storage::disk($this->env)->delete($this->getDirectory() . "{$nombre}.{$archivo->getClientOriginalExtension()}");
+        if (Storage::disk($this->env)->exists($this->getDirectory() . '/' . $nombre)) {
+            Storage::disk($this->env)->delete($this->getDirectory() . '/' . $nombre);
         }
 
-        $load = $archivo->storePubliclyAs(
-            $this->getDirectory(),
-            $nombre. "." .$archivo->getClientOriginalExtension(),
-            $this->env
-        );
+        $load = $archivo->storePubliclyAs( $this->getDirectory(), $nombre, $this->env );
 
         if ($load!==FALSE) {
             $this->setPath($load);
